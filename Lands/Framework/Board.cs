@@ -4,8 +4,8 @@ namespace Framework {
     public class Board {
 
         public List<Tile> tiles { get; set; }
-        int width;
-        int height;
+        protected int width;
+        protected int height;
 
         public Board(int width, int height) { 
             this.width = width;
