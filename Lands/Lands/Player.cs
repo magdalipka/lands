@@ -6,11 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Lands {
-    internal class Player1 : Player {
-        public Player1(TurnsMediator turnsMediator, int id) : base(turnsMediator, id) {}
+    internal class LandsPlayer : Player {
+
+        
+        public LandsPlayer(TurnsMediator turnsMediator, int id, string name) : base(turnsMediator, id, name) {
+        }
+
+
 
         public override void Move() {
-            Console.WriteLine("Hello I'm 1");
+            Console.WriteLine("Hello I'm 2");
             turnsMediator.Notify(id, Console.ReadLine());
         }
     }

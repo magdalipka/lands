@@ -9,9 +9,9 @@ namespace Lands {
     internal class Lands : Game {
 
         internal Lands() { 
-            this.turnsMediator = new TurnsMediator(Handler);
-            this.turnsMediator.AddPlayer(new Player1(this.turnsMediator, 0));
-            this.turnsMediator.AddPlayer(new Player2(this.turnsMediator, 1));
+            this.turnsMediator = new DefaultTurnsMediator(Handler);
+            this.turnsMediator.AddPlayer(new LandsPlayer(this.turnsMediator, 0, "Player1"));
+            this.turnsMediator.AddPlayer(new LandsPlayer(this.turnsMediator, 1, "Player2"));
             this.turnsMediator.Start();
         }
 
