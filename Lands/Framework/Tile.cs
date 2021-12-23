@@ -3,8 +3,12 @@
 namespace Framework {
     public class Tile {
 
-        public string texturePath { get; set; }
+        public string TexturePath { get; set; }
 
-        public List<Piece> pieces { get; set; }
+        public List<Piece> Pieces { get; set; }
+
+        public Tile() {
+            Pieces = new List<Piece>();
+        }
     }
 }

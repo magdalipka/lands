@@ -9,6 +9,14 @@ namespace Framework {
         
         protected TurnsMediator turnsMediator;
 
+        public Game() {
+            Players = new List<Player>();
+        }
+
+        public void AddPlayer(Player player) { 
+            Players.Add(player);
+        }
+
         public string GameJSON() {
             return JsonSerializer.Serialize(this);
         }
