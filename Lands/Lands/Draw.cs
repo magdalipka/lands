@@ -10,7 +10,7 @@ namespace Lands {
             for (int i = 0; i < board.GetHeight(); ++i) {
                 List<LandsTile> line = new List<LandsTile>();
                 for (int j = 0; j < board.GetWidth(); ++j) {
-                    line.Add((LandsTile) board.GetTile(i, j));
+                    line.Add((LandsTile) board.GetTile(j, i));
                 }
                 DrawLine(line.ToArray());
             }
@@ -50,7 +50,12 @@ namespace Lands {
         }
 
         private static void DrawPiece(LandsPiece landsPiece) {
+            ConsoleColor oldColor = Console.BackgroundColor;
+            if (landsPiece.meeple != null) {
+                Console.BackgroundColor = landsPiece.meeple.owner.consoleColor;
+            }
             Console.Write(PieceCode(landsPiece));
+            Console.BackgroundColor = oldColor;
         }
 
         private static char PieceCode(LandsPiece landsPiece) {

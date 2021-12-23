@@ -1,4 +1,5 @@
 ﻿using Framework;
+using System;
 
 namespace Lands {
     internal class LandsPiece : Piece {
@@ -18,7 +19,8 @@ namespace Lands {
         }
 
         public void SetMeeple(Meeple meeple) {
-            if (meeple == null) {
+            if (this.meeple == null) {
+                Console.WriteLine("hi");
                 this.meeple = meeple;
             }
         }

@@ -20,8 +20,12 @@ namespace Framework {
             Tiles[index] = tile;
         }
 
+        public void SetTile(Tile tile, int x, int y) {
+            Tiles[height * y + x] = tile;
+        }
+
         public Tile GetTile(int x, int y) {
-            return Tiles[width * x + y];
+            return Tiles[height * y + x];
         }
 
         public int GetWidth() {
