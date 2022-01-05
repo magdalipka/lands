@@ -9,7 +9,6 @@ namespace Lands {
 
         public override void Make(string command) {
             string[] content = command.Split(';');
-            Lands lands = (Lands) this.game;
             int pieceIndex = int.Parse(content[0]);
             int x = int.Parse(content[1]);
             int y = int.Parse(content[2]);

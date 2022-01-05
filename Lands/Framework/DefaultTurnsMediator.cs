@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-
-namespace Framework {
+﻿namespace Framework {
     public class DefaultTurnsMediator : TurnsMediator {
         
-        public DefaultTurnsMediator(Handler handler) {
+        public DefaultTurnsMediator(Handler handler, IsWon isWon, Won won) {
             this.handler = handler;
+            this.isWon = isWon;
+            this.won = won;
         }
 
         public override void AddPlayer(Player player) {
@@ -19,9 +19,12 @@ namespace Framework {
             if (id == waitingFor) {
                 waitingFor = (waitingFor + 1) % players.Count;
                 handler(id, content);
+                if (isWon()) {
+                    won();
+                    return;
+                }
                 players[waitingFor].Move();
             }
         }
-
     }
 }

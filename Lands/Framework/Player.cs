@@ -2,8 +2,8 @@
     public abstract class Player {
 
         protected TurnsMediator turnsMediator;
-        protected int id;
 
+        public int id;
         public string name;
 
         public Player(TurnsMediator turnsMediator, int id, string name) {

@@ -5,7 +5,6 @@ namespace Lands {
     internal class LandsPlayer : Player {
 
         public ConsoleColor consoleColor;
-        public int meeplesLeft = 2;
         
         public LandsPlayer(TurnsMediator turnsMediator, int id, string name, ConsoleColor consoleColor) : base(turnsMediator, id, name) {
             this.consoleColor = consoleColor;
