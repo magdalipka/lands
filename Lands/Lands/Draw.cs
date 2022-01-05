@@ -5,6 +5,12 @@ using static Lands.LandsPiece;
 
 namespace Lands {
     internal class Draw {
+        
+        //(x,y)
+
+        //(0,0)(1,0)
+        //(0,1)(1,2)
+        //(0,2)(1,2)
 
         public static void DrawBoard(Board board) {
             for (int i = 0; i < board.GetHeight(); ++i) {

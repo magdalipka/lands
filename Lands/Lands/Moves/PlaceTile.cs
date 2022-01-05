@@ -2,7 +2,7 @@ using Framework;
 
 namespace Lands {
 
-    //availableTileIndex;tileX;tileY
+    //tile:availableTileIndex;tileX;tileY
     public class PlaceTile : Move {
         
         public PlaceTile(Game game) : base(game) {}

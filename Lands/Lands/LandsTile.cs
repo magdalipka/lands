@@ -2,6 +2,11 @@
 using static Lands.LandsPiece;
 
 namespace Lands {
+
+    // 0 
+    //123
+    // 4 
+
     internal class LandsTile : Tile {
 
         public LandsTile(PieceType upper, PieceType left, PieceType central, PieceType right, PieceType lower) {
