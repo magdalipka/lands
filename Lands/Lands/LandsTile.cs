@@ -1,4 +1,6 @@
-﻿using Framework;
+﻿using System;
+using System.Linq;
+using Framework;
 using static Lands.LandsPiece;
 
 namespace Lands {
@@ -16,5 +18,16 @@ namespace Lands {
             Pieces.Add(new LandsPiece(right));
             Pieces.Add(new LandsPiece(lower));
         }
+
+        public static LandsTile GenerateRandom() {
+            PieceType[] types = (PieceType[]) Enum.GetValues(typeof(PieceType)).Cast<PieceType>(); 
+            
+            PieceType GetRandom() {
+                return types[new Random().Next(0, types.Length)];
+            }
+
+            return new LandsTile(GetRandom(), GetRandom(), GetRandom(), GetRandom(), GetRandom());
+        }
+
     }
 }

@@ -20,7 +20,6 @@ namespace Lands {
 
         public void SetMeeple(Meeple meeple) {
             if (this.meeple == null) {
-                Console.WriteLine("hi");
                 this.meeple = meeple;
             }
         }
