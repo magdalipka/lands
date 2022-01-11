@@ -9,9 +9,9 @@ namespace Lands {
 
         internal List<LandsTile> availableTiles = new List<LandsTile>();
         internal readonly LandsTile blank = new LandsTile(PieceType.Blank, PieceType.Blank, PieceType.Blank, PieceType.Blank, PieceType.Blank);
-        internal LandsUserInterface userInterface;
+        internal ILandsUserInterface userInterface;
 
-        internal Lands(int boardWidth, int boardHeight, List<PlayerInput> players, LandsUserInterface userInterface) { 
+        internal Lands(int boardWidth, int boardHeight, List<PlayerInput> players, ILandsUserInterface userInterface) { 
             this.userInterface = userInterface;
             this.turnsMediator = new DefaultTurnsMediator(Handler, IsWon, Won);
             for(int i = 0; i < players.Count; i++) {
@@ -30,14 +30,16 @@ namespace Lands {
 
         private void Handler(int id, string content) {
             string[] command = content.Split(':');
-            switch (command[0]) {
-                case "tile":
-                    new PlaceTile(this).Make(command[1]);
-                    break;
-                case "meeple":
-                    new PlaceMeeple(this).Make($"{command[1]};{id}");
-                    break;
-            }
+            try {
+                switch (command[0]) {
+                    case "tile":
+                        new PlaceTile(this).Make(command[1]);
+                        break;
+                    case "meeple":
+                        new PlaceMeeple(this).Make($"{command[1]};{id}");
+                        break;
+                }
+            } catch { }
             userInterface.Clear();
             userInterface.DrawRound(this.Board, this.availableTiles);
         }

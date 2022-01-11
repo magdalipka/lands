@@ -20,7 +20,7 @@ namespace Lands {
         }
 
         public static LandsTile GenerateRandom() {
-            PieceType[] types = (PieceType[]) Enum.GetValues(typeof(PieceType)).Cast<PieceType>(); 
+            PieceType[] types = (PieceType[]) Enum.GetValues(typeof(PieceType)).Cast<PieceType>().Where(x => x != PieceType.Blank).ToArray();
             
             PieceType GetRandom() {
                 return types[new Random().Next(0, types.Length)];
