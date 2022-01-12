@@ -1,5 +1,4 @@
 ﻿using Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using static Lands.LandsPiece;
@@ -9,9 +8,9 @@ namespace Lands {
 
         internal List<LandsTile> availableTiles = new List<LandsTile>();
         internal readonly LandsTile blank = new LandsTile(PieceType.Blank, PieceType.Blank, PieceType.Blank, PieceType.Blank, PieceType.Blank);
-        internal ILandsUserInterface userInterface;
+        internal IUserInterface userInterface;
 
-        internal Lands(int boardWidth, int boardHeight, List<PlayerInput> players, ILandsUserInterface userInterface) { 
+        internal Lands(int boardWidth, int boardHeight, List<LandsPlayerData> players, IUserInterface userInterface) { 
             this.userInterface = userInterface;
             this.turnsMediator = new DefaultTurnsMediator(Handler, IsWon, Won);
             for(int i = 0; i < players.Count; i++) {
@@ -40,12 +39,10 @@ namespace Lands {
                         break;
                 }
             } catch { }
-            userInterface.Clear();
             userInterface.DrawRound(this.Board, this.availableTiles);
         }
 
         private void Won() {
-            userInterface.Clear();
             userInterface.DrawRound(this.Board, this.availableTiles);
             List<int> results = turnsMediator.players.Select(x => 0).ToList();
             foreach (LandsTile tile in Board.Tiles) {
@@ -53,10 +50,7 @@ namespace Lands {
                     results[piece.meeple.owner.id] += (int) piece.type;
                 }
             }
-            userInterface.WriteLine("Results:");
-            for (int i = 0; i < results.Count; ++i) { 
-                userInterface.WriteLine($"{turnsMediator.players[i].name}: {results[i]}");
-            }
+            userInterface.DrawResults(results, turnsMediator.players);
         }
 
         private bool IsWon() {

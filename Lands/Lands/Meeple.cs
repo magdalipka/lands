@@ -1,6 +1,4 @@
-﻿using Framework;
-
-namespace Lands {
+﻿namespace Lands {
     internal class Meeple {
 
         public LandsPlayer owner;

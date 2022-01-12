@@ -1,5 +1,4 @@
 using Framework;
-using System;
 
 namespace Lands {
 
@@ -16,7 +15,7 @@ namespace Lands {
             if (x >= 0 && x < game.Board.GetWidth() && y >= 0 && y < game.Board.GetHeight()) {
                 LandsTile landsTile = (LandsTile) game.Board.GetTile(x, y);
                 LandsPiece landsPiece = (LandsPiece) landsTile.Pieces[pieceIndex];
-                if (landsPiece.meeple == null) {
+                if (landsPiece.meeple == null && landsPiece.type != LandsPiece.PieceType.Blank) {
                     LandsPiece.PieceType pieceType = landsPiece.type;
                     landsPiece.SetMeeple(new Meeple((LandsPlayer) game.turnsMediator.players[ownerId]));
                     MakeOthers(x, y, pieceIndex, ownerId, pieceType, game.Board);

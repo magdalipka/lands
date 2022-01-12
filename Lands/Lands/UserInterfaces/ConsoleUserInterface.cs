@@ -1,27 +1,51 @@
 using Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using static Lands.LandsPiece;
 
 namespace Lands {
-    internal class ConsoleInterface : ILandsUserInterface {
-        public void WriteLine(string data) {
-            Console.WriteLine(data);
+    internal class ConsoleUserInterface : IUserInterface {
+
+        public List<LandsPlayerData> GetPlayersData() { 
+            List<LandsPlayerData> data = new List<LandsPlayerData>();
+            ConsoleColor[] colors = (ConsoleColor[]) Enum.GetValues(typeof(ConsoleColor)).Cast<ConsoleColor>()
+                .Where(x => x != ConsoleColor.Black && x != ConsoleColor.White)
+                .ToArray();
+            int maxPlayers = colors.Length;
+            int players = GetInt("How many players are playing?", 2, maxPlayers);
+            for (int i = 0; i < players; ++i) {
+                Console.WriteLine($"Player {i + 1} name:");
+                data.Add(new LandsPlayerData(Console.ReadLine(), colors[i]));
+            }
+            return data;
         }
 
-        public void Write(char data) {
-            Console.Write(data);
+        public int GetBoardWidth() {
+            return GetInt("Board width:", 1, 8);
         }
 
-        public void Clear() {
-            Console.Clear();
+        public int GetBoardHeight() {
+            return GetInt("Board height:", 1, 8);
         }
 
-        public string ReadCommand() {
+        public void DrawResults(List<int> results, List<Player> players) {
+            Console.WriteLine("Results:");
+            for (int i = 0; i < results.Count; ++i) {
+                Console.WriteLine($"{players[i].name}: {results[i]}");
+            }
+        }
+
+        public string GetCommand(LandsPlayer player) {
+            ConsoleColor oldColor = Console.BackgroundColor;
+            Console.BackgroundColor = player.consoleColor;
+            Console.WriteLine($"{player.name} command: ");
+            Console.BackgroundColor = oldColor;
             return Console.ReadLine();
         }
 
         public void DrawRound(Board board, List<LandsTile> availableTiles) {
+            Console.Clear();
             DrawBoard(board);
             if (availableTiles.Count > 0) {
                 DrawAvailableTiles(availableTiles);
@@ -97,6 +121,7 @@ namespace Lands {
             Console.Write(PieceCode(landsPiece));
             Console.BackgroundColor = oldColor;
         }
+
         private char PieceCode(LandsPiece landsPiece) {
             return landsPiece.type switch {
                 PieceType.Road => 'R',
@@ -104,6 +129,22 @@ namespace Lands {
                 PieceType.City => 'C',
                 _ => 'X',
             };
+        }
+
+        private int GetInt(string query, int min, int max) {
+            try {
+                Console.WriteLine($"{query} ({min} - {max})");
+                int num = int.Parse(Console.ReadLine());
+                if (num >= min && num <= max) {
+                    return num;
+                } else {
+                    Console.WriteLine("Something went wrong");
+                    return GetInt(query, min, max);
+                }
+            } catch {
+                Console.WriteLine("Something went wrong");
+                return GetInt(query, min, max);
+            }
         }
     }
 }
